@@ -89,6 +89,10 @@ module Grape
       namespace_stackable(:representations, []) unless namespace_stackable(:representations)
       namespace_inheritable(:default_error_status, 500) unless namespace_inheritable(:default_error_status)
 
+      # named params get evaluated right away after embedding them into the params block,
+      # see Grape::DSL::Parameters#use for more details
+      unset_namespace_stackable(:named_params)
+
       @options = options
 
       @options[:path] = Array(options[:path])
